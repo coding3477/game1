@@ -4,6 +4,8 @@ const c = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
+const scoreEl = document.querySelector("#scoreEl")
+
 //console.log(canvas);
 
 class Player {
@@ -133,7 +135,7 @@ function spawnEnemies() {
 }
 
 let animationId;
-
+let score = 0;
 key_pressed = {
     t: false,
     r: false,
@@ -200,8 +202,6 @@ function animate() {
             const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
 
             if (dist - enemy.radius - projectile.radius < 1) {
-                
-
                 if (enemy.radius - 10 > 5) {
                     //enemy.radius -= 10;
                     gsap.to(enemy, {
@@ -209,6 +209,8 @@ function animate() {
                     });
                     projectiles.splice(index, 1);
                 } else {
+                    score += 100;
+                    scoreEl.innerHTML = score;
                     enemies.splice(index, 1);
                     //projectiles.splice(index, 1);
                     for (let i = 0; i < enemy.radius * 2; i++) {
